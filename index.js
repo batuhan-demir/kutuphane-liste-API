@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const getList = async (il) => {
 
-    const file = await fs.readFileSync("./list.json", "utf-8");
+    const file = await fs.readFileSync(__dirname + "/list.json", "utf-8");
     const json = JSON.parse(file);
     const body = json.find(el => el.il == il)?.body;
 
