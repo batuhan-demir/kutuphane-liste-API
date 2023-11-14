@@ -8,12 +8,12 @@ const { getList } = require("./index");
 const PORT = process.env.PORT || 80;
 
 app.get("/", async (req, res) => {
-    const { il } = req.query;
+    const { il, ilce } = req.query;
 
     if (!il)
         return res.send("Bir il query'si girin.");
 
-    const sonuc = await getList(il);
+    const sonuc = await getList({ il, ilce });
 
     res.json(sonuc);
 })

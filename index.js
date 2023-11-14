@@ -1,10 +1,10 @@
 const fs = require('fs');
 
-const getList = async (il) => {
+const getList = async ({ il, ilce }) => {
 
     const file = await fs.readFileSync(__dirname + "/list.json", "utf-8");
     const json = JSON.parse(file);
-    const body = json.find(el => el.il == il)?.body;
+    const body = json.find(el => el.il?.toLowerCase() == il.toLowerCase())?.body;
 
     const req = await fetch("https://earsiv.gov.tr/kutuphane-listesi.aspx", {
         "headers": {
@@ -32,6 +32,9 @@ const getList = async (il) => {
         tel: el[5],
         email: el[7],
     })
+
+    if (ilce)
+        sonuc = sonuc.filter(el => el.ilce?.toLowerCase() == ilce.toLowerCase());
 
     return sonuc;
 }
